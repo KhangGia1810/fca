@@ -10,6 +10,7 @@ module.exports = {
           "name": null,
           "url": null,
           "rel": null,
+          "location": null,
           "preview_url": null,
           "preview_width": null,
           "preview_height": null,
