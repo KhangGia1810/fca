@@ -10,7 +10,7 @@ function formatData(data) {
     // eslint-disable-next-line no-prototype-builtins
     if (data.hasOwnProperty(prop)) {
       var innerObj = data[prop];
-      retObj = {
+      retObj[prop] = {
         id: prop,
         name: innerObj.name,
         firstName: innerObj.firstName,
