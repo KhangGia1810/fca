@@ -324,6 +324,7 @@ describe('Login:', function() {
       assert(user.gender);
       assert(user.type);
       assert(!user.isFriend);
+      assert(user.hometown);
       done();
     });
   });
