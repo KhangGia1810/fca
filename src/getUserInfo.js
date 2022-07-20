@@ -19,11 +19,7 @@ function formatData(data) {
     gender: innerObj.gender,
     type: innerObj.type,
     isFriend: innerObj.is_friend,
-    isBirthday: !!innerObj.is_birthday,
-    location: {
-      id: innerObj.id_location,
-      name: innerObj.name_location
-    }
+    isBirthday: !!innerObj.is_birthday
   };
     }
   }
