@@ -21,8 +21,8 @@ function formatData(data) {
     isFriend: innerObj.is_friend,
     isBirthday: !!innerObj.is_birthday,
     location: {
-      id: innerObj.id_hometown,
-      name: innerObj.name_hometown
+      id: innerObj.id_location,
+      name: innerObj.name_location
     }
   };
     }
