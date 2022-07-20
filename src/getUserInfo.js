@@ -20,7 +20,7 @@ function formatData(data) {
         type: innerObj.type,
         isFriend: innerObj.is_friend,
         isBirthday: !!innerObj.is_birthday,
-        hometown: innerObj.hometown
+        location: innerObj.location
       };
     }
   }
