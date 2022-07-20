@@ -11,17 +11,20 @@ function formatData(data) {
     if (data.hasOwnProperty(prop)) {
       var innerObj = data[prop];
       retObj[prop] = {
-        name: innerObj.name,
-        firstName: innerObj.firstName,
-        vanity: innerObj.vanity,
-        thumbSrc: innerObj.thumbSrc,
-        profileUrl: innerObj.uri,
-        gender: innerObj.gender,
-        type: innerObj.type,
-        isFriend: innerObj.is_friend,
-        isBirthday: !!innerObj.is_birthday,
-        location: innerObj.location
-      };
+    name: innerObj.name,
+    firstName: innerObj.firstName,
+    vanity: innerObj.vanity,
+    thumbSrc: `https://graph.facebook.com/${retObj[prop]}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`,
+    profileUrl: innerObj.uri,
+    gender: innerObj.gender,
+    type: innerObj.type,
+    isFriend: innerObj.is_friend,
+    isBirthday: !!innerObj.is_birthday,
+    location: {
+      id: innerObj.id_hometown,
+      name: innerObj.name_hometown
+    }
+  };
     }
   }
 
