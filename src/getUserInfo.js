@@ -15,7 +15,7 @@ function formatData(data) {
         name: innerObj.name,
         firstName: innerObj.firstName,
         vanity: innerObj.vanity,
-        thumbSrc: "https://graph.facebook.com/"+prop+"/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662",
+        thumbSrc: innerObj.photo,
         profileUrl: innerObj.uri,
         gender: innerObj.gender,
         type: innerObj.type,
