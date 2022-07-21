@@ -21,7 +21,7 @@ function formatData(data) {
         type: innerObj.type,
         isFriend: innerObj.is_friend,
         isBirthday: !!innerObj.is_birthday,
-        location: innerObj.location_name
+        location: prop.location_name
       };
     }
   }
