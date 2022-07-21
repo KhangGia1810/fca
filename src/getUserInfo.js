@@ -11,7 +11,6 @@ function formatData(data) {
     if (data.hasOwnProperty(prop)) {
       var innerObj = data[prop];
       retObj[prop] = {
-        id: prop,
         name: innerObj.name,
         firstName: innerObj.firstName,
         vanity: innerObj.vanity,
