@@ -577,7 +577,7 @@ function login(loginData, options, callback) {
     updatePresence: false,
     forceLogin: false,
     autoMarkDelivery: true,
-    autoMarkRead: false,
+    autoMarkRead: true,
     autoReconnect: true,
     logRecordSize: defaultLogRecordSize,
     online: true,
