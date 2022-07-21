@@ -19,6 +19,9 @@ function setOptions(globalOptions, options) {
         log.level = options.logLevel;
         globalOptions.logLevel = options.logLevel;
         break;
+      case 'autoMarkRead':
+        globalOptions.autoMarkRead = Boolean(options.autoMarkRead);
+        break;
       case 'logRecordSize':
         log.maxRecordSize = options.logRecordSize;
         globalOptions.logRecordSize = options.logRecordSize;
@@ -577,7 +580,7 @@ function login(loginData, options, callback) {
     updatePresence: false,
     forceLogin: false,
     autoMarkDelivery: true,
-    autoMarkRead: true,
+    autoMarkRead: false,
     autoReconnect: true,
     logRecordSize: defaultLogRecordSize,
     online: true,
