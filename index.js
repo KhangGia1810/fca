@@ -72,11 +72,11 @@ function setOptions(globalOptions, options) {
       case 'emitReady':
         globalOptions.emitReady = Boolean(options.emitReady);
         break;
-      case 'pauseLog':
+      /*case 'pauseLog':
         globalOptions.pauseLog = Boolean(options.pauseLog);
-        break;
+        break;*/
       default:
-        log.warn("setOptions", "Unrecognized option given to setOptions: " + key);
+        logger.error(`Tùy Chọn Không Được Hỗ Trợ Được Cung Cấp Cho SetOptions: ${key}`);
         break;
     }
   });
