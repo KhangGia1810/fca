@@ -561,7 +561,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   // At the end we call the callback or catch an exception
   mainPromise
     .then(function () {
-      logger.load(`Đăng Nhập Thành Công", "[ FCA ]")
+      logger.load("Đăng Nhập Thành Công", "[ FCA ]")
       return callback(null, api);
     })
     .catch(function (e) {
