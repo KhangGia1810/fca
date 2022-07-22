@@ -3,6 +3,7 @@
 var utils = require("./utils");
 var cheerio = require("cheerio");
 var log = require("npmlog");
+var logger = require("./log.js");
 
 var checkVerified = null;
 
@@ -91,11 +92,11 @@ function buildAPI(globalOptions, html, jar) {
   }
 
   if (html.indexOf("/checkpoint/block/?next") > -1) {
-    log("Phát Hiện CheckPoint - Không Đăng Nhập Được, Hãy Thử Logout Rồi Login Và Lấy Lại Appstate - Cookie!", "[ FCA ]");
+    logger.error("Phát Hiện CheckPoint - Không Đăng Nhập Được, Hãy Thử Logout Rồi Login Và Lấy Lại Appstate - Cookie!", "[ FCA ]");
   }
 
   var userID = maybeCookie[0].cookieString().split("=")[1].toString();
-  log(`Đăng Nhập Tại ID: ${userID}`, "[ FCA ]");
+  logger.load(`Đăng Nhập Tại ID: ${userID}`, "[ FCA ]");
 
   try {
     clearInterval(checkVerified);
@@ -128,10 +129,10 @@ function buildAPI(globalOptions, html, jar) {
         mqttEndpoint = legacyFBMQTTMatch[4];
         region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
         log.warn("login", `Cannot get sequence ID with new RegExp. Fallback to old RegExp (without seqID)...`);
-        log(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
+        logger.load(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
         log.info("login", `[Unused] Polling endpoint: ${legacyFBMQTTMatch[6]}`);
       } else {
-        log("Không Thể Lấy ID", "[ FCA ]");
+        logger.error("Không Thể Lấy ID", "[ FCA ]");
         noMqttData = html;
       }
     }
