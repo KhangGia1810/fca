@@ -291,7 +291,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
 
         // This means the account has login approvals turned on.
         if (headers.location.indexOf('https://www.facebook.com/checkpoint/') > -1) {
-          logger.error("Vui Lòng Tắt 2FA Và Tiến Hành Đăng Nhập Lại", "[ FCA ]);
+          logger.error("Vui Lòng Tắt 2FA Và Tiến Hành Đăng Nhập Lại", "[ FCA ]");
           var nextURL = 'https://www.facebook.com/checkpoint/?next=https%3A%2F%2Fwww.facebook.com%2Fhome.php';
 
           return utils
