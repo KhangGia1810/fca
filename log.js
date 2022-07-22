@@ -6,7 +6,7 @@ module.exports = (data, option) => {
     }
     break;
     case "load": {
-      console.log(chalk.hex('#33CCFF').bold(`[ FCA ] `) + data);
+      console.log(chalk.hex('#33CCFF').bold(`[ INFO ] `) + data);
     }
     break;
     case "warn": {
@@ -20,7 +20,7 @@ module.exports = (data, option) => {
   }
 }
 module.exports.load = (data, option) => {
-  console.log(chalk.hex('#33CCFF').bold(`${option || "[ FCA ]"} `) + data);
+  console.log(chalk.hex('#33CCFF').bold(`${option || "[ INFO ]"} `) + data);
 }
 module.exports.warn = (data, option) => {
   console.log(chalk.hex('#FF6600').bold(`${option || "[ WARN ]"} `) + data);
