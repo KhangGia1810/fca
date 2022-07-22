@@ -89,7 +89,7 @@ function buildAPI(globalOptions, html, jar) {
   });
 
   if (maybeCookie.length === 0) {
-    logger.error("Appstate - Cookie Của Bạn Đã Bị Lỗi, Hãy Thay Cái Mới, Hoặc Vô Trình Duyệt Ẩn Danh Rồi Đăng Nhập Và Thử Lại!");
+    throw { error: "Appstate - Cookie Của Bạn Đã Bị Lỗi, Hãy Thay Cái Mới, Hoặc Vô Trình Duyệt Ẩn Danh Rồi Đăng Nhập Và Thử Lại!" };
   }
 
   if (html.indexOf("/checkpoint/block/?next") > -1) {
