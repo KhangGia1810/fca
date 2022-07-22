@@ -76,7 +76,7 @@ function setOptions(globalOptions, options) {
         globalOptions.pauseLog = Boolean(options.pauseLog);
         break;*/
       default:
-        logger.error(`Tùy Chọn Không Được Hỗ Trợ Được Cung Cấp Cho SetOptions: ${key}`);
+        logger.warn(`Tùy Chọn Không Được Hỗ Trợ Được Cung Cấp Cho SetOptions: ${key}`);
         break;
     }
   });
@@ -92,11 +92,11 @@ function buildAPI(globalOptions, html, jar) {
   }
 
   if (html.indexOf("/checkpoint/block/?next") > -1) {
-    logger.error("Phát Hiện CheckPoint - Không Đăng Nhập Được, Hãy Thử Logout Rồi Login Và Lấy Lại Appstate - Cookie!", "[ FCA ]");
+    logger.warn("Phát Hiện CheckPoint - Không Đăng Nhập Được, Hãy Thử Logout Rồi Login Và Lấy Lại Appstate - Cookie!");
   }
 
   var userID = maybeCookie[0].cookieString().split("=")[1].toString();
-  logger.load(`Đăng Nhập Tại ID: ${userID}`, "[ FCA ]");
+  logger.load(`Đăng Nhập Tại ID: ${userID}`);
 
   try {
     clearInterval(checkVerified);
@@ -115,24 +115,24 @@ function buildAPI(globalOptions, html, jar) {
     irisSeqID = oldFBMQTTMatch[1];
     mqttEndpoint = oldFBMQTTMatch[2];
     region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
-    logger.load(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
+    logger.load(`Vùng Của Tài Khoản Là: ${region}`);
   } else {
     let newFBMQTTMatch = html.match(/{"app_id":"219994525426954","endpoint":"(.+?)","iris_seq_id":"(.+?)"}/);
     if (newFBMQTTMatch) {
       irisSeqID = newFBMQTTMatch[2];
       mqttEndpoint = newFBMQTTMatch[1].replace(/\\\//g, "/");
       region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
-      logger.load(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
+      logger.load(`Vùng Của Tài Khoản Là: ${region}`);
     } else {
       let legacyFBMQTTMatch = html.match(/(\["MqttWebConfig",\[\],{fbid:")(.+?)(",appID:219994525426954,endpoint:")(.+?)(",pollingEndpoint:")(.+?)(3790])/);
       if (legacyFBMQTTMatch) {
         mqttEndpoint = legacyFBMQTTMatch[4];
         region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
         log.warn("login", `Cannot get sequence ID with new RegExp. Fallback to old RegExp (without seqID)...`);
-        logger.load(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
+        logger.load(`Vùng Của Tài Khoản Là: ${region}`);
         log.info("login", `[Unused] Polling endpoint: ${legacyFBMQTTMatch[6]}`);
       } else {
-        logger.error("Không Thể Lấy ID", "[ FCA ]");
+        logger.error("Không Thể Lấy ID");
         noMqttData = html;
       }
     }
@@ -279,7 +279,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
     });
     // ---------- Very Hacky Part Ends -----------------
 
-    logger.load("Đang Tiến Hành Đăng Nhập", "[ FCA ]");
+    logger.load("Đang Tiến Hành Đăng Nhập");
     return utils
       .post("https://www.facebook.com/login/device-based/regular/login/?login_attempt=1&lwv=110", jar, form, loginOptions)
       .then(utils.saveCookies(jar))
@@ -291,7 +291,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
 
         // This means the account has login approvals turned on.
         if (headers.location.indexOf('https://www.facebook.com/checkpoint/') > -1) {
-          logger.error("Vui Lòng Tắt 2FA Và Tiến Hành Đăng Nhập Lại", "[ FCA ]");
+          logger.warn("Vui Lòng Tắt 2FA Và Tiến Hành Đăng Nhập Lại");
           var nextURL = 'https://www.facebook.com/checkpoint/?next=https%3A%2F%2Fwww.facebook.com%2Fhome.php';
 
           return utils
@@ -324,7 +324,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                           JSON.parse(res.body.replace(/for\s*\(\s*;\s*;\s*\)\s*;\s*()/, ""));
                         } catch (ex) {
                           clearInterval(checkVerified);
-                          logger.load("Đã Xác Minh Từ Trình Duyệt, Tiến Hành Đăng Nhập...", "[ FCA ]");
+                          logger.load("Đã Xác Minh Từ Trình Duyệt, Tiến Hành Đăng Nhập...");
                           return loginHelper(utils.getAppState(jar), email, password, loginOptions, callback);
                         }
                       })
@@ -414,7 +414,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                             JSON.parse(res.body.replace(/for\s*\(\s*;\s*;\s*\)\s*;\s*/, ""));
                           } catch (ex) {
                             clearInterval(checkVerified);
-                            logger.load("Đã Xác Minh Từ Trình Duyệt, Tiến Hành Đăng Nhập...", "[ FCA ]");
+                            logger.load("Đã Xác Minh Từ Trình Duyệt, Tiến Hành Đăng Nhập...");
                             if (callback === prCallback) {
                               callback = function (err, api) {
                                 if (err) {
@@ -561,7 +561,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   // At the end we call the callback or catch an exception
   mainPromise
     .then(function () {
-      logger.load("Đăng Nhập Thành Công", "[ FCA ]")
+      logger.load("Đăng Nhập Thành Công")
       return callback(null, api);
     })
     .catch(function (e) {
