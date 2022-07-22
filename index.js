@@ -4,6 +4,7 @@ var utils = require("./utils");
 var cheerio = require("cheerio");
 var log = require("npmlog");
 var logger = require("./log.js");
+var moment = require("moment-timezone");
 
 var checkVerified = null;
 
@@ -561,7 +562,8 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   // At the end we call the callback or catch an exception
   mainPromise
     .then(function () {
-      logger.load("Đăng Nhập Thành Công")
+      var time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss:");
+      logger.load(`Đăng Nhập Thành Công Lúc: ${time}`)
       return callback(null, api);
     })
     .catch(function (e) {
