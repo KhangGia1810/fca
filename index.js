@@ -93,7 +93,7 @@ function buildAPI(globalOptions, html, jar) {
   }
 
   if (html.indexOf("/checkpoint/block/?next") > -1) {
-    logger.warn("Phát Hiện CheckPoint - Không Đăng Nhập Được, Hãy Thử Logout Rồi Login Và Lấy Lại Appstate - Cookie!");
+    throw { error: "Phát Hiện CheckPoint - Không Đăng Nhập Được, Hãy Thử Logout Rồi Login Và Lấy Lại Appstate - Cookie!" };
   }
 
   var userID = maybeCookie[0].cookieString().split("=")[1].toString();
@@ -378,7 +378,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                         .then(function (res) {
                           var headers = res.headers;
                           if (!headers.location && res.body.indexOf('Review Recent Login') > -1) {
-                            throw { error: "Something went wrong with login approvals." };
+                            throw { error: "Đã Xảy Ra Sự Cố Với Phê Duyệt Đăng Nhập." };
                           }
 
                           var appState = utils.getAppState(jar);
@@ -464,7 +464,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                     var headers = res.headers;
 
                     if (!headers.location && res.body.indexOf('Review Recent Login') > -1) {
-                      throw { error: "Something went wrong with review recent login." };
+                      throw { error: "Đã Xảy Ra Lỗi Khi Xem Lại Thông Tin Đăng Nhập Gần Đây." };
                     }
 
                     var appState = utils.getAppState(jar);
