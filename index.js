@@ -287,7 +287,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
       .then(function (res) {
         var headers = res.headers;
         if (!headers.location) {
-          throw { error("Tài Khoản Hoặc Mật Khẩu Không Đúng, Vui Lòng Kiểm Tra Lại") };
+          throw { error: "Tài Khoản Hoặc Mật Khẩu Không Đúng, Vui Lòng Kiểm Tra Lại" };
         }
 
         // This means the account has login approvals turned on.
