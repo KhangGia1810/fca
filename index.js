@@ -115,14 +115,14 @@ function buildAPI(globalOptions, html, jar) {
     irisSeqID = oldFBMQTTMatch[1];
     mqttEndpoint = oldFBMQTTMatch[2];
     region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
-    log.info("login", `Vùng Của Tài Khoản Là: ${region}`);
+    logger.load(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
   } else {
     let newFBMQTTMatch = html.match(/{"app_id":"219994525426954","endpoint":"(.+?)","iris_seq_id":"(.+?)"}/);
     if (newFBMQTTMatch) {
       irisSeqID = newFBMQTTMatch[2];
       mqttEndpoint = newFBMQTTMatch[1].replace(/\\\//g, "/");
       region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
-      log(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
+      logger.load(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
     } else {
       let legacyFBMQTTMatch = html.match(/(\["MqttWebConfig",\[\],{fbid:")(.+?)(",appID:219994525426954,endpoint:")(.+?)(",pollingEndpoint:")(.+?)(3790])/);
       if (legacyFBMQTTMatch) {
@@ -279,7 +279,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
     });
     // ---------- Very Hacky Part Ends -----------------
 
-    log.info("login", "Logging in...");
+    logger.load("Đang Tiến Hành Đăng Nhập", "[ FCA ]");
     return utils
       .post("https://www.facebook.com/login/device-based/regular/login/?login_attempt=1&lwv=110", jar, form, loginOptions)
       .then(utils.saveCookies(jar))
@@ -291,7 +291,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
 
         // This means the account has login approvals turned on.
         if (headers.location.indexOf('https://www.facebook.com/checkpoint/') > -1) {
-          log.info("login", "You have login approvals turned on.");
+          logger.error("Vui Lòng Tắt 2FA Và Tiến Hành Đăng Nhập Lại", "[ FCA ]);
           var nextURL = 'https://www.facebook.com/checkpoint/?next=https%3A%2F%2Fwww.facebook.com%2Fhome.php';
 
           return utils
@@ -324,7 +324,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                           JSON.parse(res.body.replace(/for\s*\(\s*;\s*;\s*\)\s*;\s*()/, ""));
                         } catch (ex) {
                           clearInterval(checkVerified);
-                          log.info("login", "Verified from browser. Logging in...");
+                          logger.load("Đã Xác Minh Từ Trình Duyệt, Tiến Hành Đăng Nhập...", "[ FCA ]");
                           return loginHelper(utils.getAppState(jar), email, password, loginOptions, callback);
                         }
                       })
@@ -414,7 +414,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                             JSON.parse(res.body.replace(/for\s*\(\s*;\s*;\s*\)\s*;\s*/, ""));
                           } catch (ex) {
                             clearInterval(checkVerified);
-                            log.info("login", "Verified from browser. Logging in...");
+                            logger.load("Đã Xác Minh Từ Trình Duyệt, Tiến Hành Đăng Nhập...", "[ FCA ]");
                             if (callback === prCallback) {
                               callback = function (err, api) {
                                 if (err) {
@@ -561,7 +561,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   // At the end we call the callback or catch an exception
   mainPromise
     .then(function () {
-      log.info("login", 'Done logging in.');
+      logger.load(`Đăng Nhập Thành Công", "[ FCA ]")
       return callback(null, api);
     })
     .catch(function (e) {
