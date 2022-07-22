@@ -71,6 +71,9 @@ function setOptions(globalOptions, options) {
       case 'emitReady':
         globalOptions.emitReady = Boolean(options.emitReady);
         break;
+      case 'pauseLog':
+        globalOptions.pauseLog = Boolean(options.pauseLog);
+        break;
       default:
         log.warn("setOptions", "Unrecognized option given to setOptions: " + key);
         break;
@@ -88,11 +91,11 @@ function buildAPI(globalOptions, html, jar) {
   }
 
   if (html.indexOf("/checkpoint/block/?next") > -1) {
-    log.warn("login", "Phát Hiện CheckPoint - Không Đăng Nhập Được, Hãy Thử Logout Rồi Login Và Lấy Lại Appstate - Cookie!");
+    log("Phát Hiện CheckPoint - Không Đăng Nhập Được, Hãy Thử Logout Rồi Login Và Lấy Lại Appstate - Cookie!", "[ FCA ]");
   }
 
   var userID = maybeCookie[0].cookieString().split("=")[1].toString();
-  log.info("login", `Đăng Nhập Tại ID: ${userID}`);
+  log(`Đăng Nhập Tại ID: ${userID}`, "[ FCA ]");
 
   try {
     clearInterval(checkVerified);
@@ -118,17 +121,17 @@ function buildAPI(globalOptions, html, jar) {
       irisSeqID = newFBMQTTMatch[2];
       mqttEndpoint = newFBMQTTMatch[1].replace(/\\\//g, "/");
       region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
-      log.info("login", `Vùng Của Tài Khoản Là: ${region}`);
+      log(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
     } else {
       let legacyFBMQTTMatch = html.match(/(\["MqttWebConfig",\[\],{fbid:")(.+?)(",appID:219994525426954,endpoint:")(.+?)(",pollingEndpoint:")(.+?)(3790])/);
       if (legacyFBMQTTMatch) {
         mqttEndpoint = legacyFBMQTTMatch[4];
         region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
         log.warn("login", `Cannot get sequence ID with new RegExp. Fallback to old RegExp (without seqID)...`);
-        log.info("login", `Vùng Của Tài Khoản Là: ${region}`);
+        log(`Vùng Của Tài Khoản Là: ${region}`, "[ FCA ]");
         log.info("login", `[Unused] Polling endpoint: ${legacyFBMQTTMatch[6]}`);
       } else {
-        log.warn("login", "Không Thể Lấy ID");
+        log("Không Thể Lấy ID", "[ FCA ]");
         noMqttData = html;
       }
     }
