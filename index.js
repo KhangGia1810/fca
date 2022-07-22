@@ -96,7 +96,8 @@ function buildAPI(globalOptions, html, jar) {
   }
 
   var userID = maybeCookie[0].cookieString().split("=")[1].toString();
-  var userData = api.getUserInfo(userID),
+  var getUserInfo = require("./src/getUserInfo.js");
+  var userData = getUserInfo(userID),
       { name } = userData[userID];
   logger.load(`Đăng Nhập Tại ID: ${userID}`, "[ FCA ]");
   logger.load(`Tài Khoản: ${name}`, "[ FCA ]");
