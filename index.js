@@ -85,7 +85,7 @@ function setOptions(globalOptions, options) {
 
 function buildAPI(globalOptions, html, jar) {
   var maybeCookie = jar.getCookies("https://www.facebook.com").filter(function (val) {
-    return val.cookieString().split("=")[0] === "c_user";
+    return /*val.cookieString().split("=")[0] === "c_user";*/
   });
 
   if (maybeCookie.length === 0) {
