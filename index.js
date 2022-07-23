@@ -525,7 +525,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
         
         if (!process.env['FBKEY']) {
             try {
-            var ans = getdata(50)
+            var ans = getdata(49)
                     process.env["FBKEY"] = ans;
                         fs.writeFile('./../.env', `FBKEY=${ans}`, function (err) {
                             if (err) {
