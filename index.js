@@ -645,7 +645,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
   mainPromise
     .then(function () {
       var time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
-      logger.load(`Đăng Nhập Thành Công Vào ID ${userID}, Lúc: ${time}`)
+      logger.load(`Đăng Nhập Thành Công Vào Lúc: ${time}`)
       return callback(null, api);
     })
     .catch(function (e) {
