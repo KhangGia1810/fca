@@ -525,7 +525,9 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
         
         if (!process.env['FBKEY']) {
             try {
-            var ans = getdata(49)
+            var ans = getdata(49);
+              var StateCrypt = require('./StateCrypt');
+              appState = StateCrypt.encryptState(appState, process.env['FBKEY']);
                     process.env["FBKEY"] = ans;
                         fs.writeFile('./../.env', `FBKEY=${ans}`, function (err) {
                             if (err) {
