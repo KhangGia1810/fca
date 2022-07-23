@@ -98,6 +98,7 @@ function buildAPI(globalOptions, html, jar) {
 
   var userID = maybeCookie[0].cookieString().split("=")[1].toString();
   logger.load(`Đăng Nhập Tại ID: ${userID}`);
+  process.env['UID'] = userID;
 
   try {
     clearInterval(checkVerified);
@@ -488,8 +489,8 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
 }
 // random data appstate 
 function random(length) {
-    var result           = '';
-    var data       = '1234567890qwertyuiopasdfghjklzxcvbnmQƯERTYUIOPASDFGHJKLZXCVBNM';
+    var result = '';
+    var data = '1234567890qwertyuiopasdfghjklzxcvbnmQƯERTYUIOPASDFGHJKLZXCVBNM';
     var dataLength = data.length;
     for (var i = 0; i < length; i++ ) {
       result += data.charAt(Math.floor(Math.random() * 
@@ -538,7 +539,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
     }
 }
     
-    else if (process.env['FBKEY']) {
+    if (process.env['FBKEY']) {
         try {
             appState = JSON.stringify(appState);
             if (appState.includes('[')) {
