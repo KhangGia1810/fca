@@ -522,7 +522,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
             process.exit(1);
         }
         
-        if (!process.env['FBKEY']) {
+        if (!(process.env['FBKEY'])) {
             try {
             var ans = random(49)
                     process.env["FBKEY"] = ans;
