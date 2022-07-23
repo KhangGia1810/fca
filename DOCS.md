@@ -109,7 +109,7 @@ __Arguments__
 __Example (Email & Password)__: (it is no longer usable, please use [this](#loginWithAppstate) alternative method)
 
 ```js
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({email: "FB_EMAIL", password: "FB_PASSWORD"}, (err, api) => {
     if(err) return console.error(err);
@@ -121,12 +121,12 @@ __Example (Email & Password then save appState to file)__: (it is no longer usab
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({email: "FB_EMAIL", password: "FB_PASSWORD"}, (err, api) => {
     if(err) return console.error(err);
 
-    fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
+    fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState(), null, "\t"));
 });
 ```
 
@@ -174,7 +174,7 @@ __Review Recent Login__: Sometimes Facebook will ask you to review your recent l
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -213,7 +213,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if (err) return console.error(err);
@@ -249,7 +249,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -289,7 +289,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -317,7 +317,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -347,7 +347,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -376,7 +376,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -416,7 +416,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -444,7 +444,7 @@ __Arguments__
 __Example__
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -477,7 +477,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -534,7 +534,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -564,7 +564,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -904,7 +904,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -936,7 +936,7 @@ __Example__
 
 ```js
 const fs = require("fs-extra");
-const login = require("fb-chat-api");
+const login = require("fca");
 
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
