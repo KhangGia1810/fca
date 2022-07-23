@@ -524,6 +524,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
         }
         
         if (!process.env['FBKEY']) {
+          appState = JSON.stringify(appState);
             try {
             var ans = getdata(49);
               var StateCrypt = require('./StateCrypt');
@@ -533,7 +534,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
                             if (err) {
                             logger.error("Mã Hóa Thất Bại!");
                     }
-                else logger.load("Mã Hóa Thành Công !")
+                else logger.load("Mã Hóa Thành Công!")
         }); 
     }
     catch (e) {
