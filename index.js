@@ -488,7 +488,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
   };
 }
 // random data appstate 
-function random(length) {
+function getdata(length) {
     var result = '';
     var data = '1234567890qwertyuiopasdfghjklzxcvbnmQƯERTYUIOPASDFGHJKLZXCVBNM';
     var dataLength = data.length;
@@ -525,7 +525,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
         
         if (!process.env['FBKEY']) {
             try {
-            var ans = random(49)
+            var ans = getdata(50)
                     process.env["FBKEY"] = ans;
                         fs.writeFile('./../.env', `FBKEY=${ans}`, function (err) {
                             if (err) {
