@@ -500,7 +500,7 @@ function getdata(length) {
 }
 
 // Helps the login
-function loginHelper(appState, email, password, globalOptions, callback, prCallback) {
+async function loginHelper(appState, email, password, globalOptions, callback, prCallback) {
   var mainPromise = null;
   var jar = utils.getJar();
 
