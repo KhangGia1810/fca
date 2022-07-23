@@ -488,11 +488,11 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
   };
 }
 // random data appstate 
-function getdata(length) {
+function getdata(text) {
     var result = '';
     var data = '1234567890qwertyuiopasdfghjklzxcvbnmQƯERTYUIOPASDFGHJKLZXCVBNM';
     var dataLength = data.length;
-    for (var i = 0; i < length; i++ ) {
+    for (var i = 0; i < text; i++ ) {
       result += data.charAt(Math.floor(Math.random() * 
  dataLength));
    }
@@ -543,18 +543,18 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
         try {
             appState = JSON.stringify(appState);
             if (appState.includes('[')) {
-                logger.warn('Chưa Sẵn Sàng Để Giải Mã Appstate!');
+                logger.warn('Chưa Sẵn Sàng Để Giải Mã appState!');
             } else {
                 try {
                     appState = JSON.parse(appState);
                     var StateCrypt = require('./StateCrypt');
                     var keyy = process.env['FBKEY'];
                     appState = StateCrypt.decryptState(appState, process.env['FBKEY']);
-                    logger.load('Giải Mã Appstate Thành Công ');
-                    logger.load('Password AppState là :' + keyy);
+                    logger.load('Giải Mã appState Thành Công ');
+                    logger.load('Password appState là :' + keyy);
                 }
                 catch (e) {
-                    logger.error('Vui Lòng AppState!');
+                    logger.error('Vui Lòng appState!');
                 }
             }
         }
@@ -570,7 +570,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
             appState = appState;
         }
         catch (e) {
-            logger.error('Vui Lòng AppState!');
+            logger.error('Vui Lòng appState!');
         }
     }
     try { 
@@ -582,7 +582,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
     // Load the main page.
     mainPromise = utils.get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true }).then(utils.saveCookies(jar));
 } catch (e) {
-    logger.error('Vui Lòng AppState!');
+    logger.error('Vui Lòng appState!');
 }
 } 
     else {
@@ -645,7 +645,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
   mainPromise
     .then(function () {
       var time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
-      logger.load(`Đăng Nhập Thành Công Lúc: ${time}`)
+      logger.load(`Đăng Nhập Thành Công Vào ID ${userID}, Lúc: ${time}`)
       return callback(null, api);
     })
     .catch(function (e) {
