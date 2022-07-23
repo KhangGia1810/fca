@@ -1,4 +1,5 @@
 const chalk = require("chalk");
+
 module.exports = (data, option) => {
   switch (option) {
     case "error": {
