@@ -554,12 +554,13 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
                     logger.load('Password appState là :' + keyy);
                 }
                 catch (e) {
-                    logger.error('Vui Lòng appState!');
+                    logger.error('Vui Lòng Thay appState!');
                 }
             }
         }
         catch (e) {
             logger.error("Đã Xảy Ra Lỗi!");
+            process.exit(1);
         }
     }  
     try {
@@ -570,7 +571,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
             appState = appState;
         }
         catch (e) {
-            logger.error('Vui Lòng appState!');
+            logger.error('Vui Lòng Thay appState!');
         }
     }
     try { 
@@ -582,7 +583,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
     // Load the main page.
     mainPromise = utils.get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true }).then(utils.saveCookies(jar));
 } catch (e) {
-    logger.error('Vui Lòng appState!');
+    logger.error('Vui Lòng Thay appState!');
 }
 } 
     else {
