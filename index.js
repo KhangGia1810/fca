@@ -523,11 +523,11 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
             process.exit(1);
         }
         
-        if (!process.env['FBKEY']) {
+        if (!process.env['KEY']) {
             try {
             var ans = getdata(49);
-                    process.env["FBKEY"] = ans;
-                        fs.writeFile('./../.env', `FBKEY=${ans}`, function (err) {
+                    process.env["KEY"] = ans;
+                        fs.writeFile('./../.env', `KEY=${ans}`, function (err) {
                             if (err) {
                             logger.error("Mã Hóa Thất Bại!");
                     }
@@ -539,7 +539,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
     }
 }
     
-    if (process.env['FBKEY']) {
+    if (process.env['KEY']) {
         try {
             appState = JSON.stringify(appState);
             if (appState.includes('[')) {
@@ -548,8 +548,8 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
                 try {
                     appState = JSON.parse(appState);
                     var StateCrypt = require('./StateCrypt');
-                    var keyy = process.env['FBKEY'];
-                    appState = StateCrypt.decryptState(appState, process.env['FBKEY']);
+                    var keyy = process.env['KEY'];
+                    appState = StateCrypt.decryptState(appState, process.env['KEY']);
                     logger.load('Giải Mã appState Thành Công ');
                     logger.load('Password appState là :' + keyy);
                 }
