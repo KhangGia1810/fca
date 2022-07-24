@@ -547,7 +547,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
           try {
           appState = JSON.parse(appState);
           appStateData = StateCrypt.encryptState(appState, process.env['KEY']);
-          fs.writeFileSync(appState, appStateData);
+          fs.writeFile(appState, appStateData);
           logger.load('Đã Mã Hóa appState!');
           }
           catch (e) {
