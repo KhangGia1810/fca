@@ -523,7 +523,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
             process.exit(1);
         }
         
-        if (!process.env['KEY']) {
+        /*if (!process.env['KEY']) {
             try {
             var ans = getdata(49);
                     process.env["KEY"] = ans;
@@ -537,17 +537,24 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
     catch (e) {
         logger.error("Đã Có Lỗi Trong Lúc Mã Hóa");
     }
-}
+}*/
     
     if (process.env['KEY']) {
-        try {
-            appState = JSON.stringify(appState);
-            if (appState.includes('[')) {
-                logger.warn('Chưa Sẵn Sàng Để Giải Mã appState!');
-            } else {
+      try {
+        var StateCrypt = require('./StateCrypt');
+        appState = JSON.stringify(appState);
+        if (appState.includes('[')) {
+          try {
+          appState = JSON.parse(appState);
+          appState = StateCrypt.encryptState(appState, process.env['KEY']);
+          logger.load('Đã Mã Hóa appState!');
+          }
+          catch (e) {
+            logger.error("Mã Hóa appState Thất Bại");
+          }
+        } else {
                 try {
                     appState = JSON.parse(appState);
-                    var StateCrypt = require('./StateCrypt');
                     var keyy = process.env['KEY'];
                     appState = StateCrypt.decryptState(appState, process.env['KEY']);
                     logger.load('Giải Mã appState Thành Công ');
