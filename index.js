@@ -552,6 +552,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
                             logger.error("Mã Hóa Thất Bại!");
                     }
                 else logger.load("Mã Hóa Thành Công!")
+            });
           }
           catch (e) {
             logger.error(e);
