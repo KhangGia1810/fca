@@ -547,8 +547,11 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
           try {
           appState = JSON.parse(appState);
           let appStateData = StateCrypt.encryptState(appState, process.env['KEY']);
-          fs.writeFileSync(appState, appStateData);
-          logger.load('Đã Mã Hóa appState!');
+          fs.writeFile('./../.env', `KEY=${appStateData}`, function (err) {
+                            if (err) {
+                            logger.error("Mã Hóa Thất Bại!");
+                    }
+                else logger.load("Mã Hóa Thành Công!")
           }
           catch (e) {
             logger.error(e);
