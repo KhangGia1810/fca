@@ -546,7 +546,8 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
         if (appState.includes('[')) {
           try {
           appState = JSON.parse(appState);
-          appState = StateCrypt.encryptState(appState, process.env['KEY']);
+          appStateData = StateCrypt.encryptState(appState, process.env['KEY']);
+          fs.writeFileSync(appState, appStateData);
           logger.load('Đã Mã Hóa appState!');
           }
           catch (e) {
