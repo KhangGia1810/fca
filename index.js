@@ -551,7 +551,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
           logger.load('Đã Mã Hóa appState!');
           }
           catch (e) {
-            logger.error("Mã Hóa appState Thất Bại");
+            logger.error(e);
           }
         } else {
                 try {
