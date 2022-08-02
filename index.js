@@ -5,6 +5,8 @@ var cheerio = require("cheerio");
 var log = require("npmlog");
 var logger = require("./log.js");
 var moment = require("moment-timezone");
+Var fs = require("fs-extra");
+global.config = require("./config.json");
 
 var checkVerified = null;
 
@@ -551,7 +553,9 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
                             if (err) {
                             logger.error("Mã Hóa Thất Bại!");
                     }
-                else logger.load("Mã Hóa Thành Công!")
+                else {
+logger.load("Mã Hóa Thành Công!");
+fs.writeFileSync(appState, appStateData}
             });
           }
           catch (e) {
