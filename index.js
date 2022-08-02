@@ -555,7 +555,7 @@ async function loginHelper(appState, email, password, globalOptions, callback, p
                     }
                 else {
 logger.load("Mã Hóa Thành Công!");
-fs.writeFileSync(appState, appStateData}
+fs.writeFileSync(global.config.APPSTATEPATH, appStateData}
             });
           }
           catch (e) {
