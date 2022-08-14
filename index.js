@@ -489,133 +489,29 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
       });
   };
 }
-// random data appstate 
-function getdata(text) {
-    var result = '';
-    var data = '1234567890qwertyuiopasdfghjklzxcvbnmQƯERTYUIOPASDFGHJKLZXCVBNM';
-    var dataLength = data.length;
-    for (var i = 0; i < text; i++ ) {
-      result += data.charAt(Math.floor(Math.random() * 
- dataLength));
-   }
-   return result;
-}
-
-// Helps the login
-async function loginHelper(appState, email, password, globalOptions, callback, prCallback) {
-  var mainPromise = null;
-  var jar = utils.getJar();
-
-  // If we're given an appState we loop through it and save each cookie
-  // back into the jar.
-  try { 
-    if (appState) {
-        var fs = require("fs-extra");
-        try {
-            if (fs.existsSync('./../.env')) {
-                require('dotenv').config({ path: './../.env' });
-            }
-            else {
-                fs.writeFileSync('./../.env', ``);
-                require('dotenv').config({ path: './../.env' });
-            }
-        }
-        catch (e) {
-            logger.error("Đã Xảy Ra Lỗi!");
-            process.exit(1);
-        }
-        
-        /*if (!process.env['KEY']) {
-            try {
-            var ans = getdata(49);
-                    process.env["KEY"] = ans;
-                        fs.writeFile('./../.env', `KEY=${ans}`, function (err) {
-                            if (err) {
-                            logger.error("Mã Hóa Thất Bại!");
-                    }
-                else logger.load("Mã Hóa Thành Công!")
-        }); 
-    }
-    catch (e) {
-        logger.error("Đã Có Lỗi Trong Lúc Mã Hóa");
-    }
-}*/
-    
-    if (process.env['KEY']) {
-      try {
-        var StateCrypt = require('./StateCrypt');
-        appState = JSON.stringify(appState);
-        if (appState.includes('[')) {
-          try {
-          appState = JSON.parse(appState);
-          let appStateData = StateCrypt.encryptState(appState, process.env['KEY']);
-          fs.writeJsonSync('./../.env', `KEY=${appStateData}`, function (err) {
-                            if (err) {
-                            logger.error("Mã Hóa Thất Bại!");
-                    }
-                else {
-logger.load("Mã Hóa Thành Công!");
-fs.writeFileSync(global.config.APPSTATEPATH, appStateData}
-            });
-          }
-          catch (e) {
-            logger.error(e);
-          }
-        } else {
-                try {
-                    appState = JSON.parse(appState);
-                    var keyy = process.env['KEY'];
-                    appState = StateCrypt.decryptState(appState, process.env['KEY']);
-                    logger.load('Giải Mã appState Thành Công ');
-                    logger.load('Password appState là :' + keyy);
-                }
-                catch (e) {
-                    logger.error('Vui Lòng Thay appState!');
-                }
-            }
-        }
-        catch (e) {
-            logger.error("Đã Xảy Ra Lỗi!");
-            process.exit(1);
-        }
-    }  
-    try {
-        appState = JSON.parse(appState);
-    }
-    catch (e) {
-        try {
-            appState = appState;
-        }
-        catch (e) {
-            logger.error('Vui Lòng Thay appState!');
-        }
-    }
-    try { 
-    appState.map(function(c) {
-        var str = c.key + "=" + c.value + "; expires=" + c.expires + "; domain=" + c.domain + "; path=" + c.path + ";";
-        jar.setCookie(str, "http://" + c.domain);
+if (appState) {
+    appState.map(function (c) {
+      var str = c.key + "=" + c.value + "; expires=" + c.expires + "; domain=" + c.domain + "; path=" + c.path + ";";
+      jar.setCookie(str, "http://" + c.domain);
     });
 
     // Load the main page.
-    mainPromise = utils.get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true }).then(utils.saveCookies(jar));
-} catch (e) {
-    logger.error('Vui Lòng Thay appState!');
-}
-} 
-    else {
-        // Open the main page, then we login with the given credentials and finally
-        // load the main page again (it'll give us some IDs that we need)
-        mainPromise = utils
-            .get("https://www.facebook.com/", null, null, globalOptions, { noRef: true })
-            .then(utils.saveCookies(jar))
-            .then(makeLogin(jar, email, password, globalOptions, callback, prCallback))
-            .then(function() {
-                return utils.get('https://www.facebook.com/', jar, null, globalOptions).then(utils.saveCookies(jar));
-            });
-        }
-    } catch {
-        logger.error("Đã Xảy Ra Lỗi");
-    }
+    mainPromise = utils
+      .get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true })
+      .then(utils.saveCookies(jar));
+  } else {
+    // Open the main page, then we login with the given credentials and finally
+    // load the main page again (it'll give us some IDs that we need)
+    mainPromise = utils
+      .get("https://www.facebook.com/", null, null, globalOptions, { noRef: true })
+      .then(utils.saveCookies(jar))
+      .then(makeLogin(jar, email, password, globalOptions, callback, prCallback))
+      .then(function () {
+        return utils
+          .get('https://www.facebook.com/', jar, null, globalOptions)
+          .then(utils.saveCookies(jar));
+      });
+  }
 
   var ctx = null;
   var _defaultFuncs = null;
