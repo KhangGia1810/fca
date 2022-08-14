@@ -549,7 +549,14 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
       });
   };
 }
-if (appState) {
+
+function loginHelper(appState, email, password, globalOptions, callback, prCallback) {
+  var mainPromise = null;
+  var jar = utils.getJar();
+
+  // If we're given an appState we loop through it and save each cookie
+  // back into the jar.
+  if (appState) {
     appState.map(function (c) {
       var str = c.key + "=" + c.value + "; expires=" + c.expires + "; domain=" + c.domain + "; path=" + c.path + ";";
       jar.setCookie(str, "http://" + c.domain);
@@ -617,8 +624,7 @@ if (appState) {
   // At the end we call the callback or catch an exception
   mainPromise
     .then(function () {
-      var time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
-      logger.load(`Đăng Nhập Thành Công Vào Lúc: ${time}`)
+      log.info("login", 'Done logging in.');
       return callback(null, api);
     })
     .catch(function (e) {
