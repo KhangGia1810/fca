@@ -16,7 +16,7 @@ var cheerio = require("cheerio");
 var log = require("npmlog");
 var logger = require("./log.js");
 var moment = require("moment-timezone");
-Var fs = require("fs-extra");
+var fs = require("fs-extra");
 
 var checkVerified = null;
 
