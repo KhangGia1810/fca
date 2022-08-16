@@ -59,7 +59,7 @@ if (ObjFcaConfig['HTML']['Status'] == true) {
   const { Title, User, Music } = ObjFcaConfig['HTML']
   const app = require("express")();
   app.use(function (req, res) {
-    return res.write(HTML(Title, User, Music))
+    res.write(HTML(Title, User, Music))
   })
 }
 
