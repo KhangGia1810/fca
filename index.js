@@ -580,6 +580,8 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   // At the end we call the callback or catch an exception
   mainPromise
     .then(function () {
+      const time = require("moment-timezone").tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
+      logger.load(`Đăng Nhập Thành Công Lúc ${time}`, "[ INFO ]")
     if (ObjFcaConfig['autoUpdate'] == true) {
   const version = JSON.parse(fs.readFileSync("./node_modules/fca/package.json")).version
   const axios = require("axios");
@@ -599,9 +601,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
         }
       })
 }
-      const time = require("moment-timezone").tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
-      logger.load(`Đăng Nhập Thành Công Lúc ${time}`, "[ INFO ]")
-      return callback(null, api);
+      callback(null, api);
     })
     .catch(function (e) {
       log.error("login", e.error || e);
