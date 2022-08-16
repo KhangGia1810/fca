@@ -99,7 +99,6 @@ function buildAPI(globalOptions, html, jar) {
 
   var userID = maybeCookie[0].cookieString().split("=")[1].toString();
   logger.load(`Đăng Nhập Tại ID: ${userID}`);
-  process.env['UID'] = userID;
 
   try {
     clearInterval(checkVerified);
@@ -563,7 +562,8 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   // At the end we call the callback or catch an exception
   mainPromise
     .then(function () {
-      log.info("login", 'Done logging in.');
+      const time = require("moment-timezone".tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
+      logger.load(`Đăng Nhập Thành Lúc ${time}`, "[ FCA ]")
       return callback(null, api);
     })
     .catch(function (e) {
