@@ -1,16 +1,5 @@
 "use strict";
 
-global.Fca = new Object({
-  ObjectFcaConfig: new Object({
-    HTML: {
-      Html: true,
-      Title: "Fca",
-      UserName: "Sam",
-      LinkMusic: "https://github.com/KhangGia1810/dataMusic/blob/main/album.mp3?raw=true"
-    }
-  })
-})
-
 var utils = require("./utils");
 var cheerio = require("cheerio");
 var log = require("npmlog");
@@ -22,56 +11,6 @@ var checkVerified = null;
 
 var defaultLogRecordSize = 100;
 log.maxRecordSize = defaultLogRecordSize;
-
-function HTML(Title, UserName, LinkMusic) {
-  return `
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>` + Title + `</title>
-    <style type="text/css">
-      body, a {
-        background: blueviolet;
-        color: whitesmoke;
-      }
-    </style>
-  </head>
-  <body>
-    <center>
-      <span style="font-family: Time New Roman;">
-        <marquee>
-          <b><h3>Thank You For Using Fca!</h3></b>
-        </marquee>
-        <h1></h1>
-        <h2>Nghe Nhạc Vui Vẻ <3</h2>
-        <h2>User: ` + UserName +`</h2>
-      </span>
-      <audio controls loop autoplay src="` + LinkMusic +`" type="audio/mp3">
-        <h2>Ứng dụng của bạn không hỗ trợ audio</h2>
-      </audio>
-    </center>
-  </body>
-</html>`
-}
-
-try {
-  if (!fs.existsSync("../../FcaConfig.json")) {
-    fs.writeFileSync("../../FcaConfig.json", JSON.stringify(global.ObjectFcaConfig, null, "\t"))
-    return process.exit(1)
-  }
-  else {
-    const FcaConfig = require("../../FcaConfig.json");
-    if (FcaConfig.HTML.Html == true) {
-      const app = require("express")();
-      const { Title, UserName, LinkMusic } = FcaConfig;
-      app.get("/", function (req, res) {
-        res.write(HTML(Title, UserName, LinkMusic))
-      })
-    }
-  }
-} catch (e) {
-  log.error(e)
-}
 
 function setOptions(globalOptions, options) {
   Object.keys(options).map(function (key) {
