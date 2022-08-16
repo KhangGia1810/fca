@@ -23,6 +23,26 @@ if (!fs.existsSync("./FcaConfig.json")) {
 
 const ObjFcaConfig = require("../../FcaConfig.json");
 
+if (ObjFcaConfig['autoUpdate'] == true) {
+  const version = (require(__dirname + "/package.json")).version
+  const axios = require("axios")
+  const { execSync } = require('child_process');
+    axios.get("https://raw.githubusercontent.com/KhangGia1810/fca/master/package.json")
+      .then(res => {
+        const verisonNew = res.data.version
+        if (versionNew != version) {
+          logger.load("Đã Có Phiên Bản: " +  versionNew)
+          logger.load("Tiến Hành Update Lên Phiên Bản " + versionNew)
+          execSync("npm i fca")
+          console.clear()
+          return process.exit(0)
+        }
+        else {
+          logger.load("Bạn Đang Xài Phiên Bản Mới Nhất")
+        }
+      })
+}
+
 var checkVerified = null;
 
 var defaultLogRecordSize = 100;
