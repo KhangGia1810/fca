@@ -582,14 +582,14 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
     .then(function () {
     if (ObjFcaConfig['autoUpdate'] == true) {
   const version = JSON.parse(fs.readFileSync("./node_modules/fca/package.json")).version
-  const axios = require("axios")
+  const axios = require("axios");
   const { execSync } = require('child_process');
     axios.get("https://raw.githubusercontent.com/KhangGia1810/fca/master/package.json")
       .then(res => {
         const verisonNew = res.data.version
         if (versionNew != version) {
-          logger.load("Đã Có Phiên Bản: " +  versionNew, "[ Main ]")
-          logger.load("Tiến Hành Update Lên Phiên Bản " + versionNew, "[ Main ]")
+          logger.load(`Đã Có Phiên Bản: ${version} => ${versionNew}`, "[ Main ]")
+          logger.load(`Tiến Hành Update Lên Phiên Bản ${versionNew}`, "[ Main ]")
           execSync("npm i fca")
           console.clear()
           return process.exit(1)
