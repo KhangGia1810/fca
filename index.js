@@ -54,7 +54,7 @@ function HTML(Title, User, Music) {
 </html>`
 }
 
-const ObjFcaConfig = require("./FcaConfig.json");
+const ObjFcaConfig = require("FcaConfig.json");
 if (ObjFcaConfig['HTML']['Status'] == true) {
   const { Title, User, Music } = ObjFcaConfig['HTML']
   const app = require("express")();
