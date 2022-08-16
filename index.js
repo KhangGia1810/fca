@@ -23,25 +23,7 @@ if (!fs.existsSync("./FcaConfig.json")) {
 
 const ObjFcaConfig = require("../../FcaConfig.json");
 
-if (ObjFcaConfig['autoUpdate'] == true) {
-  const version = (require(__dirname + "/package.json")).version
-  const axios = require("axios")
-  const { execSync } = require('child_process');
-    axios.get("https://raw.githubusercontent.com/KhangGia1810/fca/master/package.json")
-      .then(res => {
-        const verisonNew = res.data.version
-        if (versionNew != version) {
-          logger.load("Đã Có Phiên Bản: " +  versionNew)
-          logger.load("Tiến Hành Update Lên Phiên Bản " + versionNew)
-          execSync("npm i fca")
-          console.clear()
-          return process.exit(0)
-        }
-        else {
-          logger.load("Bạn Đang Xài Phiên Bản Mới Nhất")
-        }
-      })
-}
+
 
 var checkVerified = null;
 
@@ -598,6 +580,25 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   // At the end we call the callback or catch an exception
   mainPromise
     .then(function () {
+    if (ObjFcaConfig['autoUpdate'] == true) {
+  const version = (require(__dirname + "/package.json")).version
+  const axios = require("axios")
+  const { execSync } = require('child_process');
+    axios.get("https://raw.githubusercontent.com/KhangGia1810/fca/master/package.json")
+      .then(res => {
+        const verisonNew = res.data.version
+        if (versionNew != version) {
+          logger.load("Đã Có Phiên Bản: " +  versionNew, "[ Main ]")
+          logger.load("Tiến Hành Update Lên Phiên Bản " + versionNew, "[ Main ]")
+          execSync("npm i fca")
+          console.clear()
+          return process.exit(1)
+        }
+        else {
+          logger.load("Bạn Đang Xài Phiên Bản Mới Nhất", "[ Main ]")
+        }
+      })
+}
       const time = require("moment-timezone").tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
       logger.load(`Đăng Nhập Thành Công Lúc ${time}`, "[ INFO ]")
       return callback(null, api);
