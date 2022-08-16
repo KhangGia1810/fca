@@ -10,8 +10,7 @@ var fs = require("fs-extra");
 global = new Object({
   ObjFcaConfig: new Object({
     autoRestartMinutes: 0,
-    encryptSt: false,
-    autoUpdate: false
+    encryptSt: false
   })
 })
 
@@ -582,7 +581,6 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
     .then(function () {
       const time = require("moment-timezone").tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
       logger.load(`Đăng Nhập Thành Công Lúc ${time}`, "[ INFO ]")
-    if (ObjFcaConfig['autoUpdate'] == true) {
   const version = JSON.parse(fs.readFileSync("./node_modules/fca/package.json")).version
   const axios = require("axios");
   const { execSync } = require('child_process');
@@ -591,17 +589,19 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
         const verisonNew = res.data.version
         if (versionNew != version) {
           logger.load(`Đã Có Phiên Bản: ${version} => ${versionNew}`, "[ Main ]")
-          logger.load(`Tiến Hành Update Lên Phiên Bản ${versionNew}`, "[ Main ]")
-          execSync("npm i fca")
-          console.clear()
-          return process.exit(1)
+          const key = require("prompt-sync")()("[ Main ] Có Bạn Muốn Cập Nhập True Or False: ")
+          if (key == true) {
+            execSync("npm i fca")
+            logger.load("Cập Nhật Thành Công", "[ Main ]")
+            console.clear()
+            return process.exit(1)
+          }
         }
         else {
           logger.load("Bạn Đang Xài Phiên Bản Mới Nhất", "[ Main ]")
         }
       })
-}
-      callback(null, api);
+      return callback(null, api);
     })
     .catch(function (e) {
       log.error("login", e.error || e);
