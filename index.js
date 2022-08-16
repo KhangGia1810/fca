@@ -9,14 +9,19 @@ var fs = require("fs-extra");
 
 global = new Object({
   ObjFcaConfig: new Object({
-    HTML: new Object({
+    HTML: {
       Status: true,
       Title: "ChatBot",
       User: "Sam",
       Music: "https://github.com/KhangGia1810/dataMusic/blob/main/album.mp3?raw=true"
-    })
+    }
   })
 })
+
+if (!fs.existsSync("./FcaConfig.json") {
+  fs.writeFileSync("./FcaConfig.json", JSON.stringify(global['ObjFcaConfig'], null, "\t));
+  return process.exit(1)
+}
 
 var checkVerified = null;
 
