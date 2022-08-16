@@ -18,7 +18,7 @@ global = new Object({
   })
 })
 
-if (!fs.existsSync("./FcaConfig.json") {
+if (!fs.existsSync("./FcaConfig.json")) {
   fs.writeFileSync("./FcaConfig.json", JSON.stringify(global['ObjFcaConfig'], null, "\t));
   return process.exit(1)
 }
