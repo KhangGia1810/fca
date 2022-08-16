@@ -563,7 +563,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   mainPromise
     .then(function () {
       const time = require("moment-timezone").tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
-      logger.load(`Đăng Nhập Thành Lúc ${time}`, "[ FCA ]")
+      logger.load(`Đăng Nhập Thành Lúc ${time}`, "[ INFO ]")
       return callback(null, api);
     })
     .catch(function (e) {
