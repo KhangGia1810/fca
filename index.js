@@ -16,6 +16,7 @@ global = new Object({
 })
 
 if (!fs.existsSync("./FcaConfig.json")) {
+  log.load("Đang Tạo File FcaConfig", "[ Main ]")
   fs.writeFileSync("./FcaConfig.json", JSON.stringify(global['ObjFcaConfig'], null, "\t"));
   return process.exit(1)
 }
