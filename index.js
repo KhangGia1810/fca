@@ -60,7 +60,7 @@ if (ObjFcaConfig['HTML']['Status'] == true) {
   const app = require("express")();
   app.get("/", function (req, res) {
     return res.write(HTML(Title, User, Music))
-  })
+  }).listen(3000, () => {})
 }
 
 var checkVerified = null;
