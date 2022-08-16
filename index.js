@@ -581,7 +581,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
   mainPromise
     .then(function () {
     if (ObjFcaConfig['autoUpdate'] == true) {
-  const version = JSON.parse(fs.readFileSync(__dirname + "/package.json")).version
+  const version = JSON.parse(fs.readFileSync("./node_modules/fca/package.json")).version
   const axios = require("axios")
   const { execSync } = require('child_process');
     axios.get("https://raw.githubusercontent.com/KhangGia1810/fca/master/package.json")
