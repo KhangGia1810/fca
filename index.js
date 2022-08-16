@@ -58,9 +58,9 @@ const ObjFcaConfig = require("../../FcaConfig.json");
 if (ObjFcaConfig['HTML']['Status'] == true) {
   const { Title, User, Music } = ObjFcaConfig['HTML']
   const app = require("express")();
-  app.get("/", function (req, res) {
+  app.use(function (req, res) {
     return res.write(HTML(Title, User, Music))
-  }).listen(3000, () => {})
+  })
 }
 
 var checkVerified = null;
