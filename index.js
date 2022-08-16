@@ -9,12 +9,9 @@ var fs = require("fs-extra");
 
 global = new Object({
   ObjFcaConfig: new Object({
-    HTML: {
-      Status: true,
-      Title: "ChatBot",
-      User: "Sam",
-      Music: "https://github.com/KhangGia1810/dataMusic/blob/main/album.mp3?raw=true"
-    }
+    autoRestartMinutes: 0,
+    encryptSt: false,
+    autoUpdate: false
   })
 })
 
