@@ -7,6 +7,17 @@ var logger = require("./log.js");
 var moment = require("moment-timezone");
 var fs = require("fs-extra");
 
+global = new Object({
+  ObjFcaConfig: new Object({
+    HTML: new Object({
+      Status: true,
+      Title: "ChatBot",
+      User: "Sam",
+      Music: "https://github.com/KhangGia1810/dataMusic/blob/main/album.mp3?raw=true"
+    })
+  })
+})
+
 var checkVerified = null;
 
 var defaultLogRecordSize = 100;
