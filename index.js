@@ -23,46 +23,7 @@ if (!fs.existsSync("./FcaConfig.json")) {
   return process.exit(1)
 }
 
-function HTML(Title, User, Music) {
-  return `
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>`+ Title +`</title>
-    <style type="text/css">
-      body, a {
-        background: blueviolet;
-        color: whitesmoke;
-      }
-    </style>
-  </head>
-  <body>
-    <center>
-      <span style="font-family: Time New Roman;">
-        <marquee>
-          <b><h3>Let's Go To Using Fca!</h3></b>
-        </marquee>
-        <h1></h1>
-        <h2>User: `+ User +`</h2>
-        <h2></h2>
-      </span>
-      <audio controls loop autoplay src="`+ Music +`" type="audio/mp3">
-        <h2>Ứng dụng của bạn không hỗ trợ audio</h2>
-      </audio>
-    </center>
-  </body>
-</html>`
-}
-
 const ObjFcaConfig = require("../../FcaConfig.json");
-if (ObjFcaConfig['HTML']['Status'] == true) {
-  const { Title, User, Music } = ObjFcaConfig['HTML']
-  const app = require("express")();
-  app.set('DFP', 3000);
-  app.use(function (req, res) {
-    res.write(HTML(Title, User, Music))
-  })
-}
 
 var checkVerified = null;
 
