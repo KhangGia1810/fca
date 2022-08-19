@@ -1,6 +1,6 @@
 {
   "name": "fca",
-  "version": "3.4.0",
+  "version": "0.1.6",
   "description": "A Facebook chat API that doesn't rely on XMPP",
   "scripts": {
     "test": "mocha",
@@ -15,8 +15,7 @@
     "facebook",
     "chat",
     "api",
-    "fca",
-    "fb-chat-api"
+    "fca"
   ],
   "bugs": {
     "url": "https://github.com/KhangGia1810/fca/issues"
